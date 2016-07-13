@@ -4,10 +4,13 @@ jQuery(document).ready(function() {
               type:"GET",
               dataType: 'json',
               success:function(result){
-                  console.log(result);   
-                console.log(result.infoFromJSON[2].subspeciesNames["sub_1"]);
-                       // func1(result);
-                      //  func2(result);
+                //console.log(result);   
+                //console.log(result.infoFromJSON[2].subspeciesNames["sub_1"]);
+                //var info = result.infoFromJSON[2].subspeciesNames["sub_1"];
+                //makeTable(info);
+                var arr = result.infoFromJSON;
+                getElFromArr(arr);
+                //forInObj(obj);
               }
         });
         console.log( "document loaded" );
@@ -16,16 +19,26 @@ $( window ).load(function() {
     console.log( "window loaded" );
 });
 
-var sizeOfTable = 3;
-for(var i = 0; i < sizeOfTable; i++)
-{
+function makeTable(info) {
     var trOfTable = document.createElement('tr');
-    //trOfTable.innerHTML = i;
+    var cell = document.createElement('td');
+    trOfTable.appendChild(cell);
+    cell.innerHTML = info;
     document.getElementById("theTable").appendChild(trOfTable);
-    for(var j = 0; j < 4; j++)
-    {
-        var cell = document.createElement('td');
-        cell.innerHTML = j;
-        document.getElementById("theTable").appendChild(cell);
-    }
 }
+
+function getElFromArr(arr) {
+  for(var i = 0; i < arr.length; i++) {
+    var obj = arr[i].subspeciesNames;
+    for (var key in obj) {
+      makeTable(obj[key]);
+    }
+    //forInObj(obj);
+  }
+}
+
+/*function forInObj(obj) {
+  for (var key in obj) {
+    makeTable(obj[key]);
+  }
+} */
